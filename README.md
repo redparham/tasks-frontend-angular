@@ -1,1 +1,2 @@
-# tasks-frontend-angular
+# Tasks UI App
+Angular app to manage tasks.
