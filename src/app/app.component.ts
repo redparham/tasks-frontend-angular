@@ -7,6 +7,7 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
+import { Task, TasksService, TaskState } from './tasks.service';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +18,19 @@ import {
 export class AppComponent {
   title = 'tasks-frontend-angular';
 
-  todo: string[] = ['Task A', 'Task B', 'Task C', 'Task D'];
-  inprogress: string[] = [];
-  done: string[] = [];
+  // todo: string[] = ['Task A', 'Task B', 'Task C', 'Task D'];
+  todo: Task[];
+  inprogress: Task[] = [];
+  done: Task[] = [];
 
-  drop(event: CdkDragDrop<string[]>) {
+  constructor(private tasksService: TasksService) {
+    var tasks = tasksService.getTasks();
+    this.todo = tasks.filter(task => task.status === TaskState.TODO);
+    this.inprogress = tasks.filter(task => task.status === TaskState.INPROGRESS);
+    this.done = tasks.filter(task => task.status === TaskState.DONE);
+  }
+
+  drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
