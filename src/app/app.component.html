@@ -1,15 +1,32 @@
-<table>
-  <thead>
-    <tr>
-      <th>ToDo</th>
-      <th>In-progress</th>
-      <th>Done</th>
-    </tr>
-  </thead>
-  <tr>
-    <td>A</td>
-    <td>B</td>
-    <td>C</td>
-  </tr>
-</table>
+<div class="tasks-container">
+  <h2>To-do</h2>
+
+  <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[inprogressList, doneList]"
+    class="tasks-list" (cdkDropListDropped)="drop($event)">
+    @for (item of todo; track item) {
+    <div class="tasks-box" cdkDrag>{{item}}</div>
+    }
+  </div>
+</div>
+<div class="tasks-container">
+  <h2>In-Progress</h2>
+
+  <div cdkDropList #inprogressList="cdkDropList" [cdkDropListData]="inprogress" [cdkDropListConnectedTo]="[todoList, doneList]"
+    class="tasks-list" (cdkDropListDropped)="drop($event)">
+    @for (item of inprogress; track item) {
+    <div class="tasks-box" cdkDrag>{{item}}</div>
+    }
+  </div>
+</div>
+<div class="tasks-container">
+  <h2>Done</h2>
+
+  <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList,inprogressList]"
+    class="tasks-list" (cdkDropListDropped)="drop($event)">
+    @for (item of done; track item) {
+    <div class="tasks-box" cdkDrag>{{item}}</div>
+    }
+  </div>
+</div>
+
 <router-outlet />
