@@ -1,39 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TasksService {
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
-    getTasks(): Task[] {
-        return [
-            {
-                id: 1,
-                name: 'Task A',
-                status: TaskState.TODO
-            },
-            {
-                id: 2,
-                name: 'Task B',
-                status: TaskState.TODO
-            },
-            {
-                id: 3,
-                name: 'Task C',
-                status: TaskState.INPROGRESS
-            },
-            {
-                id: 4,
-                name: 'Task D',
-                status: TaskState.TODO
-            },
-            {
-                id: 5,
-                name: 'Task E',
-                status: TaskState.DONE
-            }
-        ];
+    getTasks(): Observable<Task[]> {
+        return this.http
+            .get<Task[]>('https://tasks-backend-7480.onrender.com/tasks');
     }
 
 }
@@ -41,9 +18,11 @@ export class TasksService {
 export interface Task {
     id: number;
     name: string;
-    status: TaskState
+    status: TaskStatus
 }
 
-export enum TaskState {
-    TODO, INPROGRESS, DONE
+export enum TaskStatus {
+    TODO = "TODO", 
+    INPROGRESS = "INPROGRESS", 
+    DONE = "DONE"
 }
