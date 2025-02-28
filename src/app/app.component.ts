@@ -35,8 +35,8 @@ export class AppComponent implements OnInit {
         this.todo = tasks.filter(task => task.status === TaskStatus.TODO);
         this.inprogress = tasks.filter(task => task.status  as TaskStatus === TaskStatus.INPROGRESS);
         this.done = tasks.filter(task => task.status  as TaskStatus === TaskStatus.DONE);
+        this.loading=false;
       });
-    this.loading=false;
   }
 
   
