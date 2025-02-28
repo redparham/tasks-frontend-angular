@@ -1,3 +1,16 @@
+.spinner-overlay {
+  position: fixed; /* Or absolute */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's on top */
+}
+
 .tasks-container {
     width: 400px;
     max-width: 100%;
